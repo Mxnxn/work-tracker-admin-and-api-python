@@ -1,0 +1,111 @@
+<html>
+<head>
+    <title>Work Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}">
+</head>
+<body>
+    <div class="contianer " >
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <span class="navbar-brand" >Work Monitor</span>
+            <form class="ml-auto p-0 m-0" action="/admin/logout" method="POST">
+                <Button type="submit" class="btn btn-outline-secondary ">Logout</Button>
+            </form>
+        </nav>
+        <div class="col-md-8 mx-auto mt-4">
+            {% if error: %}
+            <div class="alert alert-danger mt-4">
+                {{error}}
+            </div>
+            {% endif%}
+            <div class="row">
+                <div class="col-md-4 mt-2">
+                    <form action="/admin/month" method="post">
+                      <div class="form-group">
+                        <label for="exampleSelect1">Select Specific Date</label>
+                        <input type='date' class="form-control" name='date' id="exampleInputPassword1" placeholder="Password"/> 
+                      </div>
+                      <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-8 border-left">
+                    <form class="row" action="/admin/specificmonth" method="post">
+                        <div class="col-sm-3 mt-2">
+                            <div class="form-group">
+                                <label for="exampleSelect1">Select Month</label>
+                                <select name='month' class="form-control" id="exampleSelect1" >
+                                <option selected value='0'>Select</option>
+                                <option value='1'>January</option>
+                                <option value='2'>Febuary</option>
+                                <option value='3'>March</option>
+                                <option value='4'>April</option>
+                                <option value='5'>May</option>
+                                <option value='6'>June</option>
+                                <option value='7'>July</option>
+                                <option value='8'>August</option>
+                                <option value='9'>September</option>
+                                <option value='10'>October</option>
+                                <option value='11'>November</option>
+                                <option value='12'>December</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 mt-2">
+                            <div class="form-group">
+                                <label for="exampleSelect1">Enter Year</label>
+                                <input type='number' class="form-control" name='year' id="defaultInput" placeholder="2020"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 d-flex align-items-center">
+                            <button class="btn btn-primary" style="margin-top:20px" type="submit">Submit</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 mx-auto mt-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>This Month</h3>
+                </div>
+            </div>
+        <div class="row ">
+
+        {% for pc in (data) %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span>
+                                {{pc.pc}}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            {{mm}} ➜ {% if pc.hours < 10: %}
+                                        0{{pc.hours}}
+                                    {% endif %}
+                                    {% if pc.hours > 9 %}
+                                        {{pc.hours}}
+                                    {% endif%}:
+                                    {% if pc.minutes < 10: %}
+                                        0{{pc.minutes}}
+                                    {% endif %}
+                                    {% if pc.minutes > 9 %}
+                                        {{pc.minutes}}
+                                    {% endif%}:
+                                    {% if pc.seconds < 10: %}
+                                        0{{pc.seconds}}
+                                    {% endif %}
+                                    {% if pc.seconds > 9 %}
+                                        {{pc.seconds}}
+                                    {% endif%}
+                        </div>
+                    </div>
+                </div>
+        {% endfor%}
+        </div>
+    </div>
+
+    </div>
+</body>
+
+</html>
